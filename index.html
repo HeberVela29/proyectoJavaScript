@@ -3,40 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Titulo de página -->
     <title>Vela's Shoes</title>
+
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+<!-- CSS propio -->
     <link rel="stylesheet" href="./main.css">
+
 </head>
 <body>
     <header>
-        <h1>Vela's Shoes</h1>
+        <div class="container-titulos">
+            <h1 class="titulo">Vela's Shoes</h1>
 
-        <nav>
-            <ul class="nav-bar">
-                <li><a class="enlace" href="index.html">Inicio</a></li>
-                <li><a class="enlace" href="./pages/productos.html">Productos</a></li>
-                <li><a class="enlace" href="./pages/contacto.html">Contacto</a></li>
-                <li><a class="enlace" href="./pages/carrito.html"><img src="./img/carrito.png" alt="carrito"></a></li>
-            </ul>
-        </nav>
+
+            <div id="subtitu"></div>
+        </div>
+        
+            
+        <a class="enlace" href="./pages/carrito.html"><img class="carrito" src="./img/carrito.png" alt="carrito"></a>
     </header>
 
 
     <main>
-        <h1>ACÁ IRÍA UN CARRUSEL</h1>
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+              </div>
+              
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="./img/adidas.jpg" class="d-block w-50 mx-auto" alt="adidas">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Adidas Samba</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/newbalance.jpg" class="d-block w-50 mx-auto" alt="newbalance">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>New Balance 574</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/nikecortez.jpg" class="d-block w-50 mx-auto" alt="nikecortez">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Nike Cortez</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/vans.jpg" class="d-block w-50 mx-auto" alt="vans">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Vans Old Skool</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/alden.jpg" class="d-block w-50 mx-auto" alt="alden">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Alden Indy Boots</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/corthay.jpg" class="d-block w-50 mx-auto" alt="corthay">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Corthay Arca Derby</h5>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="./img/johnlobb.jpg" class="d-block w-50 mx-auto" alt="johnlobb">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>John Lobb William II</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        
     </main>
 
 
     <footer>
-        <h4>2022 by Heber Vela</h4>
+        <h5 class="copyright">2022© by Heber Vela</h5>
 
         <div class="redes">
-            <a href=""><img src="./img/facebook.png" alt="facebook"></a>
-            <a href=""><img src="./img/instagram.png" alt="instagram"></a>
-            <a href=""><img src="./img/twitter.png" alt="twitter"></a>
+            <a href=""><img class="img-redes" src="./img/facebook.png" alt="facebook"></a>
+            <a href=""><img class="img-redes" src="./img/instagram.png" alt="instagram"></a>
+            <a href=""><img class="img-redes" src="./img/twitter.png" alt="twitter"></a>
         </div>
     </footer>
 
+<!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    
+ <!--JS propio -->
     <script src="./main.js"></script>
 </body>
 </html>

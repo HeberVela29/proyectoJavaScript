@@ -1,32 +1,51 @@
-/*INFO ADMINISTRADOR solo en consola*/
+/*ARRAYS DE OBJETOS*/
 
-let listaZapatillas = [{nombre: "Nike Cortez", precio: 3000}, {nombre: "Vans Old Skool", precio: 2500}, {nombre: "Adidas Samba", precio: 3000}, {nombre: "New Balance 574", precio: 2500}];
+let listaZapatillas = [
+    {nombre: "Nike Cortez", precio: 3000},
+    {nombre: "Vans Old Skool", precio: 2500},
+    {nombre: "Adidas Samba", precio: 3000},
+    {nombre: "New Balance 574", precio: 2500}
+]
 
-let listaZapatos = [{nombre: "Alden Indy Boot", precio: 4500}, {nombre: "Corthay Arca Derby", precio: 4000}, {nombre: "Edward Green Chelsea", precio: 5000}, {nombre: "John Lobb William II", precio: 4500}];
+let listaZapatos = [
+    {nombre: "Alden Indy Boot", precio: 4500},
+    {nombre: "Corthay Arca Derby", precio: 4000},
+    {nombre: "John Lobb William II", precio: 4500}
+]
 
-let listaOtros = [{nombre: "Ojotas Adidas", precio: 1500}, {nombre: "Ojotas Lacoste", precio: 1300}, {nombre: "Havaianas", precio: 1000}, {nombre: "Crocs", precio: 1200}, {nombre: "Pantuflas Selu", precio: 1200}];
-
-listaZapatillas.push({nombre: "Topper", precio: 2500})
-
-// ---------- Agregar producto en consola ----------
-class Producto {
-    constructor (nombre, precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-}
-
-const agregarProd = () => {
-    let nombre = prompt("Nombre del producto");
-    let precio = prompt("Precio del producto");
-    let prod = new Producto (nombre, precio);
-    listaProductos.push(prod);
-    console.log(listaProductos);
-}
-// -------------------------------------------------
+let listaOtros = [
+    {nombre: "Ojotas Lacoste", precio: 1300},
+    {nombre: "Havaianas", precio: 1000},
+    {nombre: "Crocs", precio: 1200},
+    {nombre: "Pantuflas Selu", precio: 1200}
+]
 
 let listaProductos = listaZapatillas.concat(listaZapatos, listaOtros);
 console.log(listaProductos)
+
+
+/*CREANDO ELEMENTOS con DOM*/
+
+let subtitulo = document.createElement("h2");
+
+subtitulo.innerHTML = "<p>El mejor calzado</p>";
+subtitulo.style.color = "white";
+subtitulo.style.fontSize = "large";
+
+let subtit = document.getElementById("subtitu");
+subtit.append(subtitulo);
+
+// MODIFICANDO ELEMENTOS con DOM
+
+let modificacionHeader = document.querySelector("header");
+let modificacionFooter = document.querySelector("footer");
+
+let modificador = prompt("Desea cambiar el color de fondo?");
+
+if(modificador == "si" || modificador == "Si" || modificador == "SI") {
+    modificacionHeader.style.backgroundColor = "grey";
+    modificacionFooter.style.backgroundColor = "grey";
+}
 
 
 /*SIMULADOR DE CARRITO*/
@@ -83,7 +102,7 @@ function carrito() {
             
             /*Lista zapatos*/
             case "2":
-                zapatos = prompt("Elige el modelo de tu interés:\n 1. Alden Indy Boot $4500\n 2. Corthay Arca Derby $4000\n 3. Edward Green Chelsea $5000\n 4. John Lobb William II $4500");
+                zapatos = prompt("Elige el modelo de tu interés:\n 1. Alden Indy Boot $4500\n 2. Corthay Arca Derby $4000\n 3. John Lobb William II $4500");
                 switch(zapatos){
                     case "1":
                         total += 4500;
@@ -94,10 +113,6 @@ function carrito() {
                         alert(`Su compra es: $ ${total}`);
                         break;
                     case "3":
-                        total += 5000;
-                        alert(`Su compra es: $ ${total}`);
-                        break;
-                    case "4":
                         total += 4500;
                         alert(`Su compra es: $ ${total}`);
                         break;
@@ -108,25 +123,21 @@ function carrito() {
 
             /*Lista otros*/
             case "3":
-                otros = prompt("Elige el modelo de tu interés:\n 1. Ojotas Adidas $1500\n 2. Ojotas Lacoste $1300\n 3. Havaianas $1000\n 4. Crocs $1200\n 5. Pantuflas Selu $1200");
+                otros = prompt("Elige el modelo de tu interés:\n 1. Ojotas Lacoste $1300\n 2. Havaianas $1000\n 3. Crocs $1200\n 4. Pantuflas Selu $1200");
                 switch(otros){
                     case "1":
-                        total += 1500;
-                        alert(`Su compra es: $ ${total}`);
-                        break;
-                    case "2":
                         total += 1300;
                         alert(`Su compra es: $ ${total}`);
                         break;
-                    case "3":
+                    case "2":
                         total += 1000;
                         alert(`Su compra es: $ ${total}`);
                         break;
-                    case "4":
+                    case "3":
                         total += 1200;
                         alert(`Su compra es: $ ${total}`);
                         break;
-                    case "5":
+                    case "4":
                         total += 1200;
                         alert(`Su compra es: $ ${total}`);
                         break;
@@ -147,13 +158,6 @@ function carrito() {
     }
 }
 
-/*Autentificador*/
-
-let valor = prompt("¿Eres administrador?");
-
-while(valor == "No" || valor == "no"){
-    saludar();
-    carrito();
-    break;
-}
-
+// saludar();
+// carrito();
+   
