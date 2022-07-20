@@ -1,5 +1,4 @@
 header {
-    padding: 1em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -23,8 +22,29 @@ header {
     border-radius: 50%;
 }
 
-footer {
+.img-carrito {
+    height: 50px;
+}
+
+.offcanvas {
+    --bs-offcanvas-width: 40em;
+}
+
+.prod-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 1em;
+}
+
+.remove-btn {
+    color: white;
+    background-color: rgb(32, 32, 32);
+    border-radius: 10%;
+}
+
+footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

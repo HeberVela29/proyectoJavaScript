@@ -16,20 +16,34 @@
 
 </head>
 <body>
-    <header>
+    <header class="px-5">
         <div class="container-titulos">
             <h1 class="titulo">Vela's Shoes</h1>
 
 
             <div id="subtitu"></div>
         </div>
-        
-            
-        <a class="enlace" href="./pages/carrito.html"><img class="carrito" src="./img/carrito.png" alt="carrito"></a>
+
+        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><img class="carrito" src="./img/carrito.png" alt="carrito"></button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="product-rows"></div>
+                <div class="pt-3 border-top">
+                    <h4>Total:</h4>
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </header>
 
 
     <main>
+<!--CARRUSEL-->
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -39,7 +53,7 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
-              </div>
+            </div>
               
             
             <div class="carousel-inner">
@@ -101,12 +115,128 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
-          </div>
+        </div>
         
+
+        <h2 class="px-5 py-3">Zapatillas</h2>
+<!-- CARDS Zapatillas-->
+        <div class="px-5 d-flex flex-row justify-content-between">
+            
+            <div class="card" id="item1" style="width: 18rem;">
+                <img src="./img/nikecortez.jpg" class="imagen card-img-top" alt="nikecortez">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Nike Cortez</h5>
+                    <p class=" precio card-text">$3000</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item2" style="width: 18rem;">
+                <img src="./img/vans.jpg" class="imagen card-img-top" alt="vans">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Vans Old Skool</h5>
+                    <p class="precio card-text">$2500</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item3" style="width: 18rem;">
+                <img src="./img/adidas.jpg" class="imagen card-img-top" alt="adidas">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Adidas Samba</h5>
+                    <p class="precio card-text">$3000</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item4" style="width: 18rem;">
+                <img src="./img/newbalance.jpg" class="imagen card-img-top" alt="newbalance">
+                <div class="card-body">
+                    <h5 class="nombre card-title">New Balance 574</h5>
+                    <p class="precio card-text">$2500</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+        </div>
+<!----------->
+        <h2 class="px-5 py-3">Zapatos</h2>
+<!-- CARDS Zapatos-->
+        <div class="px-5 d-flex flex-row justify-content-between">
+
+            <div class="card" id="item5" style="width: 18rem;">
+                <img src="./img/alden.jpg" class="imagen card-img-top" alt="alden">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Alden Indy Boots</h5>
+                    <p class="precio card-text">$4500</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item6" style="width: 18rem;">
+                <img src="./img/corthay.jpg" class="imagen card-img-top" alt="corthay">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Corthay Arca Derby</h5>
+                    <p class="precio card-text">$4000</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item7" style="width: 18rem;">
+                <img src="./img/johnlobb.jpg" class="imagen card-img-top" alt="johnlobb">
+                <div class="card-body">
+                    <h5 class="nombre card-title">John Lobb William II</h5>
+                    <p class="precio card-text">$4500</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+<!----------->
+        <h2 class="px-5 py-3">Otros</h2>
+<!-- CARDS Otros-->
+        <div class="px-5 d-flex flex-row justify-content-between">
+
+            <div class="card" id="item8" style="width: 18rem;">
+                <img src="./img/lacoste.jpg" class="imagen card-img-top" alt="lacoste">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Ojotas Lacoste</h5>
+                    <p class="precio card-text">$1300</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item9" style="width: 18rem;">
+                <img src="./img/havaianas.jpg" class="imagen card-img-top" alt="havaianas">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Havaianas</h5>
+                    <p class="precio card-text">$1000</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item10" style="width: 18rem;">
+                <img src="./img/crocs.jpg" class="imagen card-img-top" alt="crocs">
+                <div class="card-body">
+                    <h5 class="nombre card-title">crocs</h5>
+                    <p class="precio card-text">$1200</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="card" id="item11" style="width: 18rem;">
+                <img src="./img/selu.jpg" class="imagen card-img-top" alt="selu">
+                <div class="card-body">
+                    <h5 class="nombre card-title">Pantuflas Selú</h5>
+                    <p class="precio card-text">$1200</p>
+                    <button class="agregar btn btn-dark">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+<!----------->
     </main>
 
 
-    <footer>
+    <footer class="px-5 py-3">
         <h5 class="copyright">2022© by Heber Vela</h5>
 
         <div class="redes">
