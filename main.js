@@ -1,9 +1,6 @@
 // GENERANDO CARDS DE PRODUCTOS
 
-// Zapatillas
-
-const mostrarZapatillas = (zapatillas) => {
-    const contenedorZapatillas = document.getElementById("contenedor-zapatillas");
+const mostrarProductos = (zapatillas, contenedor) => {
     zapatillas.forEach(product => {
         const card = document.createElement("div");
         card.innerHTML +=   
@@ -15,75 +12,30 @@ const mostrarZapatillas = (zapatillas) => {
                                 <button class="btn btn-dark" id= "button${product.id}">Agregar al carrito</button>
                             </div>
                         </div>`
-        contenedorZapatillas.appendChild(card);
+        contenedor.appendChild(card);
 
         const button = document.getElementById(`button${product.id}`);
         button.addEventListener("click", ()=> {
              carrito(product.id);
-        })
-            
+        })          
     })
 }
+const contenedorZapatillas = document.getElementById("contenedor-zapatillas");
+mostrarProductos(zapatillas, contenedorZapatillas);
 
-// Zapatos
-const mostrarZapatos = (zapatos) => {
-    const contenedorZapatos = document.getElementById("contenedor-zapatos");
-    zapatos.forEach(product => {
-        const card = document.createElement("div");
-        card.innerHTML +=   
-                        `<div class="card" id="${product.id}" style="width: 18rem;">
-                            <img src="${product.img}" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">${product.nombre}</h5>
-                                <p class="card-text">$${product.precio}</p>
-                                <button class="btn btn-dark" id= "button${product.id}">Agregar al carrito</button>
-                            </div>
-                        </div>`
-        contenedorZapatos.appendChild(card);
+const contenedorZapatos = document.getElementById("contenedor-zapatos");
+mostrarProductos(zapatos, contenedorZapatos);
 
-        const button = document.getElementById(`button${product.id}`);
-        button.addEventListener("click", ()=> {
-             carrito(product.id);
-        })
-            
-    })
-}
-
-// Otros
-const mostrarOtros = (otros) => {
-    const contenedorOtros = document.getElementById("contenedor-otros");
-    otros.forEach(product => {
-        const card = document.createElement("div");
-        card.innerHTML +=   
-                        `<div class="card" id="${product.id}" style="width: 18rem;">
-                            <img src="${product.img}" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">${product.nombre}</h5>
-                                <p class="card-text">$${product.precio}</p>
-                                <button class="btn btn-dark" id= "button${product.id}">Agregar al carrito</button>
-                            </div>
-                        </div>`
-        contenedorOtros.appendChild(card);
-
-        const button = document.getElementById(`button${product.id}`);
-        button.addEventListener("click", ()=> {
-             carrito(product.id);
-        })
-            
-    })
-}
-
-
-mostrarZapatillas(zapatillas);
-mostrarZapatos(zapatos);
-mostrarOtros(otros);
+const contenedorOtros = document.getElementById("contenedor-otros");
+mostrarProductos(otros, contenedorOtros);
 
 
 // SIMULADOR CARRITO
 
+// Guardando y recuperando storage ---------------------------------------------
 const carritoContenedor = document.getElementById("product-rows")
 
-// APLICANDO JSON y STORAGE
+// (operador ternario)
 function capturarStorage () {
     return JSON.parse(localStorage.getItem("productos")) || [];
 }
@@ -92,33 +44,44 @@ function guardarStorage (carritoNuevo) {
     localStorage.setItem("productos", JSON.stringify(carritoNuevo))
 }
 
-// Esto creo que debería ir en una función pero se me quemo la cabeza
-carritoSto = capturarStorage()
-carritoSto.forEach(product => {
-    carritoContenedor.innerHTML += 
-        `<div class="prod-row" id="${product.id}">
-            <img class="img-carrito" src="${product.img}"/>
-            <span>${product.nombre}</span>
-            <span class="precio-carrito">$${product.precio}</span>
-            <button id="borrar${product.id}" class="remove-btn">Borrar</button>
-        </div>`
-})
+function iniciarCarrito () {
+    const carritoSto = capturarStorage();
+    carritoSto.forEach(product => {
+        carritoContenedor.innerHTML += 
+            `<div class="prod-row" id="${product.id}">
+                <img class="img-carrito" src="${product.img}"/>
+                <span>${product.cantidad}</span>
+                <span>${product.nombre}</span>
+                <span class="precio-carrito">$${product.precio}</span>
+                <button id="borrar${product.id}" class="remove-btn">Borrar</button>
+            </div>`
+    })
+    carritoSto.forEach(product => {
+        let botonBorrar = document.getElementById(`borrar${product.id}`);
+        botonBorrar.addEventListener("click", (e) => {
+            borrarProducto(e);
+        })
+    })
+}
 
-// -----------------------------------------------------------
+iniciarCarrito();
+// ----------------------------------------------------------------------------------
 
-const shopCarrito = [];
 
+// Mostrando productos en carrito ---------------------------------------------------
 const carrito = (productId) => {
     const mostrarEnCarrito = () => {
+        const shopCarrito = capturarStorage();
         let product = listaProductos.find(product => product.id == productId);
-        shopCarrito.push(product);
-// localStorage set
+// (spread añadiendo propiedad)
+        shopCarrito.push({ ...product, cantidad:1});
         localStorage.setItem("productos", JSON.stringify(shopCarrito));
-// ----------------
+
         let div = document.createElement("div");
         div.innerHTML = 
         `<div class="prod-row" id="${product.id}">
             <img class="img-carrito" src="${product.img}"/>
+            <span>${product.cantidad}</span>
             <span>${product.nombre}</span>
             <span class="precio-carrito">$${product.precio}</span>
             <button id="borrar${product.id}" class="remove-btn">Borrar</button>
@@ -127,19 +90,21 @@ const carrito = (productId) => {
 
         let botonBorrar = document.getElementById(`borrar${product.id}`);
         botonBorrar.addEventListener("click", (e) => {
-            borrarProducto(e)
+            borrarProducto(e);
         })
     }
-
     mostrarEnCarrito();
 }
 
 
 function borrarProducto (e) {
+    const shopCarrito = capturarStorage();
+    const newCarrito = shopCarrito.filter(prod => prod.id !=e.target.id.substring(6));
+    guardarStorage(newCarrito);
     let botonClick = e.target;
     botonClick.parentElement.remove();
 }
+// -----------------------------------------------------------------------------
 
-// EL STORAGE SE SOBREESCRIBE AL ACTUALIZAR Y AGREGAR PRODUCTOS!!
-// FALTA HACER QUE BOTON BORRAR TMB BORRE LOS PRODUCTOS DEL STORAGE!!
+// BOTON BORRAR ELIMINA LAS COPIAS DEL MISMO PRODUCTO EN SU TOTALIDAD! SOLUCIONAR AGREGANDO CANTIDAD POR CADA PRODUCTO
 // FALTA AGREGAR EL TOTAL!!!!
