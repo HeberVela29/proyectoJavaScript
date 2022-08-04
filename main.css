@@ -1,3 +1,4 @@
+/* HEADER */
 header {
     display: flex;
     flex-direction: row;
@@ -26,6 +27,7 @@ header {
     height: 50px;
 }
 
+/* OTROS */
 .offcanvas {
     --bs-offcanvas-width: 40em;
 }
@@ -38,12 +40,7 @@ header {
     padding: 1em;
 }
 
-.remove-btn {
-    color: white;
-    background-color: rgb(32, 32, 32);
-    border-radius: 10%;
-}
-
+/* FOOTER */
 footer {
     display: flex;
     flex-direction: row;

@@ -17,6 +17,17 @@ const mostrarProductos = (zapatillas, contenedor) => {
         const button = document.getElementById(`button${product.id}`);
         button.addEventListener("click", ()=> {
              carrito(product.id);
+// TOASTIFY
+            Toastify({
+                text: "Agregaste un producto al carrito :)",
+                duration: 3000,
+                gravity: "bottom",
+                style: {
+                    background: "#0f0f0f",
+                    borderRadius: "5px",
+                    marginBottom: "2em"
+                  }
+            }).showToast();
         })          
     })
 }
@@ -53,7 +64,7 @@ function iniciarCarrito () {
                 <span>${product.cantidad}</span>
                 <span>${product.nombre}</span>
                 <span class="precio-carrito">$${product.precio}</span>
-                <button id="borrar${product.id}" class="remove-btn">Borrar</button>
+                <button id="borrar${product.id}" class="btn btn-dark remove-btn">Borrar</button>
             </div>`
     })
     carritoSto.forEach(product => {
@@ -84,7 +95,7 @@ const carrito = (productId) => {
             <span>${product.cantidad}</span>
             <span>${product.nombre}</span>
             <span class="precio-carrito">$${product.precio}</span>
-            <button id="borrar${product.id}" class="remove-btn">Borrar</button>
+            <button id="borrar${product.id}" class="btn btn-dark remove-btn">Borrar</button>
         </div>`
         carritoContenedor.appendChild(div);
 
@@ -108,3 +119,4 @@ function borrarProducto (e) {
 
 // BOTON BORRAR ELIMINA LAS COPIAS DEL MISMO PRODUCTO EN SU TOTALIDAD! SOLUCIONAR AGREGANDO CANTIDAD POR CADA PRODUCTO
 // FALTA AGREGAR EL TOTAL!!!!
+// AGREGAR SWEETALERT EN BOTON COMPRAR
