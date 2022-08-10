@@ -1,45 +1,58 @@
-// GENERANDO CARDS DE PRODUCTOS
+let zapatillas;
+let zapatos;
+let otros;
 
-const mostrarProductos = (zapatillas, contenedor) => {
-    zapatillas.forEach(product => {
-        const card = document.createElement("div");
-        card.innerHTML +=   
-                        `<div class="card" id="${product.id}" style="width: 18rem;">
-                            <img src="${product.img}" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">${product.nombre}</h5>
-                                <p class="card-text">$${product.precio}</p>
-                                <button class="btn btn-dark" id= "button${product.id}">Agregar al carrito</button>
-                            </div>
-                        </div>`
-        contenedor.appendChild(card);
+let listaProductos;
 
-        const button = document.getElementById(`button${product.id}`);
-        button.addEventListener("click", ()=> {
-             carrito(product.id);
+fetch("./basededatos.json")
+    .then((response) => response.json())
+    .then((data) => {
+        zapatillas = data[0].slice(0)
+        zapatos = data[1].slice(0)
+        otros = data[2].slice(0)
+        listaProductos = [...zapatillas, ...zapatos, ...otros]
+
+        const mostrarProductos = (zapatillas, contenedor) => {
+            zapatillas.forEach(product => {
+                const card = document.createElement("div");
+                card.innerHTML +=
+                    `<div class="card" id="${product.id}" style="width: 18rem;">
+                                    <img src="${product.img}" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.nombre}</h5>
+                                        <p class="card-text">$${product.precio}</p>
+                                        <button class="btn btn-dark" id= "button${product.id}">Agregar al carrito</button>
+                                    </div>
+                                </div>`
+                contenedor.appendChild(card);
+        
+                const button = document.getElementById(`button${product.id}`);
+                button.addEventListener("click", () => {
+                    carrito(product.id);
 // TOASTIFY
-            Toastify({
-                text: "Agregaste un producto al carrito :)",
-                duration: 3000,
-                gravity: "bottom",
-                style: {
-                    background: "#0f0f0f",
-                    borderRadius: "5px",
-                    marginBottom: "2em"
-                  }
-            }).showToast();
-        })          
+                    Toastify({
+                        text: "Agregaste un producto al carrito :)",
+                        duration: 3000,
+                        gravity: "bottom",
+                        style: {
+                            background: "#0f0f0f",
+                            borderRadius: "5px",
+                            marginBottom: "2em"
+                        }
+                    }).showToast();
+                })
+            })
+        }
+// Funciones mostrarProducto
+        const contenedorZapatillas = document.getElementById("contenedor-zapatillas");
+        mostrarProductos(zapatillas, contenedorZapatillas);
+        
+        const contenedorZapatos = document.getElementById("contenedor-zapatos");
+        mostrarProductos(zapatos, contenedorZapatos);
+        
+        const contenedorOtros = document.getElementById("contenedor-otros");
+        mostrarProductos(otros, contenedorOtros);
     })
-}
-const contenedorZapatillas = document.getElementById("contenedor-zapatillas");
-mostrarProductos(zapatillas, contenedorZapatillas);
-
-const contenedorZapatos = document.getElementById("contenedor-zapatos");
-mostrarProductos(zapatos, contenedorZapatos);
-
-const contenedorOtros = document.getElementById("contenedor-otros");
-mostrarProductos(otros, contenedorOtros);
-
 
 // SIMULADOR CARRITO
 
