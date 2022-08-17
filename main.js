@@ -1,17 +1,18 @@
 let zapatillas;
 let zapatos;
 let otros;
-
 let listaProductos;
+
+// RECUPERANDO DATOS DEL JSON
 
 fetch("./basededatos.json")
     .then((response) => response.json())
     .then((data) => {
-        zapatillas = data[0].slice(0)
-        zapatos = data[1].slice(0)
-        otros = data[2].slice(0)
-        listaProductos = [...zapatillas, ...zapatos, ...otros]
-
+        zapatillas = data[0].slice(0);
+        zapatos = data[1].slice(0);
+        otros = data[2].slice(0);
+        listaProductos = [...zapatillas, ...zapatos, ...otros];
+// GENERANDO CARDS
         const mostrarProductos = (zapatillas, contenedor) => {
             zapatillas.forEach(product => {
                 const card = document.createElement("div");
@@ -43,7 +44,6 @@ fetch("./basededatos.json")
                 })
             })
         }
-// Funciones mostrarProducto
         const contenedorZapatillas = document.getElementById("contenedor-zapatillas");
         mostrarProductos(zapatillas, contenedorZapatillas);
         
@@ -57,26 +57,26 @@ fetch("./basededatos.json")
 // SIMULADOR CARRITO
 
 // Guardando y recuperando storage ---------------------------------------------
-const carritoContenedor = document.getElementById("product-rows")
+const carritoContenedor = document.getElementById("product-rows");
 
-// (operador ternario)
 function capturarStorage () {
     return JSON.parse(localStorage.getItem("productos")) || [];
 }
 
 function guardarStorage (carritoNuevo) {
-    localStorage.setItem("productos", JSON.stringify(carritoNuevo))
+    localStorage.setItem("productos", JSON.stringify(carritoNuevo));
 }
 
 function iniciarCarrito () {
-    const carritoSto = capturarStorage();
+    let carritoSto = capturarStorage();
+    carritoContenedor.innerHTML="";
     carritoSto.forEach(product => {
         carritoContenedor.innerHTML += 
             `<div class="prod-row" id="${product.id}">
                 <img class="img-carrito" src="${product.img}"/>
                 <span>${product.cantidad}</span>
                 <span>${product.nombre}</span>
-                <span class="precio-carrito">$${product.precio}</span>
+                <span class="precio-carrito">$${product.precio*product.cantidad}</span>
                 <button id="borrar${product.id}" class="btn btn-dark remove-btn">Borrar</button>
             </div>`
     })
@@ -86,50 +86,101 @@ function iniciarCarrito () {
             borrarProducto(e);
         })
     })
+    pintarTotales();
 }
 
 iniciarCarrito();
 // ----------------------------------------------------------------------------------
 
 
-// Mostrando productos en carrito ---------------------------------------------------
+// MOSTRAR productos en carrito ---------------------------------------------------
 const carrito = (productId) => {
-    const mostrarEnCarrito = () => {
-        const shopCarrito = capturarStorage();
+    const shopCarrito = capturarStorage();
+    if(estaEnCarrito(productId)){
+        incrementarCantidad(productId);
+    }else{
         let product = listaProductos.find(product => product.id == productId);
-// (spread añadiendo propiedad)
-        shopCarrito.push({ ...product, cantidad:1});
+        // (spread añadiendo propiedad)
+        product = {...product, cantidad: 1};
+        shopCarrito.push(product);
         localStorage.setItem("productos", JSON.stringify(shopCarrito));
-
-        let div = document.createElement("div");
-        div.innerHTML = 
-        `<div class="prod-row" id="${product.id}">
-            <img class="img-carrito" src="${product.img}"/>
-            <span>${product.cantidad}</span>
-            <span>${product.nombre}</span>
-            <span class="precio-carrito">$${product.precio}</span>
-            <button id="borrar${product.id}" class="btn btn-dark remove-btn">Borrar</button>
-        </div>`
-        carritoContenedor.appendChild(div);
-
-        let botonBorrar = document.getElementById(`borrar${product.id}`);
-        botonBorrar.addEventListener("click", (e) => {
-            borrarProducto(e);
-        })
+        mostrarEnCarrito(product);
     }
-    mostrarEnCarrito();
 }
 
+const mostrarEnCarrito = (product) => {
+    let div = document.createElement("div");
+    div.innerHTML = 
+    `<div class="prod-row" id="${product.id}">
+        <img class="img-carrito" src="${product.img}"/>
+        <span>${product.cantidad}</span>
+        <span>${product.nombre}</span>
+        <span class="precio-carrito">$${product.precio}</span>
+        <button id="borrar${product.id}" class="btn btn-dark remove-btn">Borrar</button>
+    </div>`
+    carritoContenedor.appendChild(div);
 
+    pintarTotales();
+
+    let botonBorrar = document.getElementById(`borrar${product.id}`);
+    botonBorrar.addEventListener("click", (e) => {
+        borrarProducto(e);
+    })
+}
+
+// CANTIDAD de productos en carrito
+function incrementarCantidad (id) {
+    let carrito = capturarStorage();
+    const indice = carrito.findIndex(e => e.id == id);
+    carrito[indice].cantidad++
+    guardarStorage(carrito);
+    iniciarCarrito();
+}
+
+function estaEnCarrito (id) {
+    let carrito = capturarStorage();
+    return carrito.some(e => e.id == id);
+}
+
+// BORRAR productoS
 function borrarProducto (e) {
     const shopCarrito = capturarStorage();
     const newCarrito = shopCarrito.filter(prod => prod.id !=e.target.id.substring(6));
     guardarStorage(newCarrito);
     let botonClick = e.target;
     botonClick.parentElement.remove();
+    pintarTotales();
 }
-// -----------------------------------------------------------------------------
 
-// BOTON BORRAR ELIMINA LAS COPIAS DEL MISMO PRODUCTO EN SU TOTALIDAD! SOLUCIONAR AGREGANDO CANTIDAD POR CADA PRODUCTO
-// FALTA AGREGAR EL TOTAL!!!!
-// AGREGAR SWEETALERT EN BOTON COMPRAR
+// TOTAL precio de productos
+function pintarTotales(){
+    const shopCarrito = capturarStorage();
+    let totales=shopCarrito.reduce((acc, prod)=>acc+(prod.precio*prod.cantidad), 0);
+    let total = document.getElementById("contenedor-total");
+    total.innerHTML = 
+        `<span>$${totales}</span>`
+
+    //SWEET ALERT en botón comprar 
+        let botonComprar = document.getElementById("boton-comprar");
+        botonComprar.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Desea continuar?',
+                text: `El total de tu compra es: $${totales}`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: `Cancelar`,
+                confirmButtonText: 'Sí'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: `Gracias por tu compra 😁`,
+                    icon: `success`
+                  })
+                  localStorage.clear();
+                  carritoContenedor.innerHTML="";
+                  pintarTotales();
+                }
+              })
+        })  
+}
